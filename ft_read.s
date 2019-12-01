@@ -1,6 +1,18 @@
-		global	ft_read
-		section	.text
-ft_read:
-		mov		rax, 0 ; syscall read
+; **************************************************************************** ;
+;                                                                              ;
+;                                                         :::      ::::::::    ;
+;    ft_read.s                                          :+:      :+:    :+:    ;
+;                                                     +:+ +:+         +:+      ;
+;    By: cchudant <marvin@42.fr>                    +#+  +:+       +#+         ;
+;                                                 +#+#+#+#+#+   +#+            ;
+;    Created: 2019/12/01 15:21:16 by cchudant          #+#    #+#              ;
+;    Updated: 2019/12/01 15:21:16 by cchudant         ###   ########.fr        ;
+;                                                                              ;
+; **************************************************************************** ;
+
+		global	_ft_read
+		section	__TEXT,__text
+_ft_read:
+		mov		rax, 0x2000003 ; syscall write
 		syscall
 		ret

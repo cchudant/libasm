@@ -1,8 +1,27 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cchudant <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/01 15:59:00 by cchudant          #+#    #+#             */
+/*   Updated: 2019/12/01 18:09:25 by cchudant         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "libasm.h"
+
+int		cmp(void *d1, void *d2)
+{
+	printf("Compare '%s' - '%s'\n", d1, d2);
+	return (((char *)d1)[0] != ((char *)d2)[0]);
+}
+
+void	free_fct(void *d1)
+{
+	printf("Freeing '%s'\n", d1);
+}
 
 int		main(void)
 {
@@ -12,7 +31,6 @@ int		main(void)
 	printf("%ld\n", ft_strlen("aa"));
 	printf("%ld\n", ft_strlen("licorne"));
 
-	// ft_strcpy
 	char dest[50];
 	printf("-- ft_strcpy\n");
 	printf("%s\n", ft_strcpy(dest, "licorne"));
@@ -26,16 +44,9 @@ int		main(void)
 	printf("%d\n", ft_strcmp("aaaaa", "a"));
 	printf("%d\n", ft_strcmp("a", "aaaaa"));
 
-	printf("-- strcmp\n");
-	printf("%d\n", strcmp("a", "b"));
-	printf("%d\n", strcmp("", "a"));
-	printf("%d\n", strcmp("aaaaa", "a"));
-	printf("%d\n", strcmp("a", "aaaaa"));
-
 	printf("-- ft_write\n");
 	printf("ret was %ld\n", ft_write(1, "licorne\n", 8));
 	printf("ret was %ld\n", ft_write(1, "aaa\n", 4));
-	printf("ret was %ld\n", ft_write(-1, "a\n", 2));
 
 	/*
 	printf("-- ft_read\n");
@@ -44,11 +55,43 @@ int		main(void)
 	printf("ret is %d, read '%.*s'\n", ret, ret, dest);
 	ret = (int)ft_read(0, dest, 8);
 	printf("ret is %d, read '%.*s'\n", ret, ret, dest);
-	printf("ret is %ld\n", ft_read(-1, dest, 2));
 	*/
-	
+
 	printf("-- ft_strdup\n");
 	printf("'%s'\n", ft_strdup("hello"));
 	printf("'%s'\n", ft_strdup("unicorn"));
 	printf("'%s'\n", ft_strdup(""));
+
+	t_list *lst = NULL;
+	printf("-- ft_list_push_front\n");
+	ft_list_push_front(&lst, "licorne");
+	ft_list_push_front(&lst, "aya");
+	ft_list_push_front(&lst, "ooooo");
+	ft_list_push_front(&lst, "popcorn");
+	while (lst)
+	{
+		printf("element: '%s'\n", lst->data);
+		free(lst);
+		lst = lst->next;
+	}
+
+	printf("-- ft_list_size\n");
+	printf("size = %ld\n", ft_list_size(lst));
+	ft_list_push_front(&lst, "aya");
+	printf("size = %ld\n", ft_list_size(lst));
+	ft_list_push_front(&lst, "ooooo");
+	printf("size = %ld\n", ft_list_size(lst));
+	ft_list_push_front(&lst, "ddd");
+	printf("size = %ld\n", ft_list_size(lst));
+	ft_list_push_front(&lst, "ooddd");
+	printf("size = %ld\n", ft_list_size(lst));
+
+	printf("-- ft_list_remove_if\n");
+	t_list *lst2 = NULL;
+	ft_list_push_front(&lst2, "o");
+	ft_list_push_front(&lst2, "o");
+	ft_list_push_front(&lst2, "o");
+	ft_list_push_front(&lst2, "o");
+	ft_list_remove_if(&lst2, "o", &cmp, &free_fct);
+	printf("res: %p\n", lst2);
 }

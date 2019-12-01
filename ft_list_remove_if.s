@@ -1,7 +1,18 @@
+; **************************************************************************** ;
+;                                                                              ;
+;                                                         :::      ::::::::    ;
+;    ft_list_remove_if.s                                :+:      :+:    :+:    ;
+;                                                     +:+ +:+         +:+      ;
+;    By: cchudant <marvin@42.fr>                    +#+  +:+       +#+         ;
+;                                                 +#+#+#+#+#+   +#+            ;
+;    Created: 2019/12/01 16:24:25 by cchudant          #+#    #+#              ;
+;    Updated: 2019/12/01 16:24:25 by cchudant         ###   ########.fr        ;
+;                                                                              ;
+; **************************************************************************** ;
 
-		global	ft_list_remove_if
-		section	.text
-ft_list_remove_if:
+		global	_ft_list_remove_if
+		section	__TEXT,__text
+_ft_list_remove_if:
 		push	rdi
 		mov		rdi, [rdi]
 		push	qword 0
@@ -13,7 +24,7 @@ loop:
 		push	rdx
 		push	rcx
 		mov		rdi, [rdi] ; rdi->data
-		call	[rdx] ; cmp(...)
+		call	rdx ; cmp(...)
 		pop		rcx
 		pop		rdx
 		pop		rsi
@@ -26,7 +37,7 @@ del_one:
 		push	rdx
 		push	rcx
 		mov		rdi, [rdi] ; rdi->data
-		call	[rax] ; free_fct(...)
+		call	rcx ; free_fct(...)
 		pop		rcx
 		pop		rdx
 		pop		rsi
@@ -34,17 +45,18 @@ del_one:
 		pop		rax
 		cmp		rax, 0
 		je		set_begin_lst
-		mov		rcx, [rdi + 8] ; rcx = rdi->next
-		mov		[rax + 8], rcx ; rax->next = rcx
+		mov		r8, [rdi + 8] ; rcx = rdi->next
+		mov		[rax + 8], r8 ; rax->next = rcx
 		push	rax
 		jmp		next_elem
 set_begin_lst:
-		pop		rcx
-		mov		rbp, [rdi + 8] ; rbp = rdi->next
-		mov		[rcx], rbp
+		pop		r8
 		push	rcx
+		mov		rcx, [rdi + 8] ; rcx = rdi->next
+		mov		[r8], rcx
+		pop		rcx
+		push	r8
 		push	rax
-		jmp		next_elem
 next_elem:
 		pop		rax
 		push	rdi
