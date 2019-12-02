@@ -7,7 +7,7 @@ NAME=libasm.a
 TEST_BINARY=test
 TEST_FILES=main.c
 TEST_CC=gcc
-TEST_CFLAGS=-Wall -Wextra -Werror -g
+TEST_CFLAGS=-Wall -Wextra -Werror -g -fsanitize=address
 
 .PHONY: all re clean fclean bonus
 

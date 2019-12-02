@@ -6,7 +6,7 @@
 /*   By: cchudant <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 15:59:00 by cchudant          #+#    #+#             */
-/*   Updated: 2019/12/01 18:09:25 by cchudant         ###   ########.fr       */
+/*   Updated: 2019/12/02 17:50:02 by cchudant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,9 @@ int		main(void)
 	while (lst)
 	{
 		printf("element: '%s'\n", lst->data);
-		free(lst);
+		t_list *tmp = lst;
 		lst = lst->next;
+		free(tmp);
 	}
 
 	printf("-- ft_list_size\n");
@@ -94,4 +95,11 @@ int		main(void)
 	ft_list_push_front(&lst2, "o");
 	ft_list_remove_if(&lst2, "o", &cmp, &free_fct);
 	printf("res: %p\n", lst2);
+	while (lst2)
+	{
+		printf("element: '%s'\n", lst2->data);
+		t_list *tmp = lst2;
+		lst2 = lst2->next;
+		free(tmp);
+	}
 }

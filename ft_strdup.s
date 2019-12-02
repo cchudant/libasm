@@ -23,6 +23,7 @@ strlen_loop:
 alloc:
 		push	rdi
 		mov		rdi, rax
+		inc		rdi
 		call	_malloc
 		cmp		rax, 0
 		je		end
